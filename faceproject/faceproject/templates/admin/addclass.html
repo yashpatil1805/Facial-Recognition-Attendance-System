@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/employee.css') }}">
+
+<div class="content">
+    <h1>Registered Classes</h1>
+    <a href="{{ url_for('adminclass') }}" class="add-employee-btn">Add Class</a>
+    <ul class="employee-list">
+        {% for cl in c %}
+        <li class="employee-item">
+            <div class="employee-details">
+                <p class="employee-name">{{ cl.class_name }}</p>
+            </div>
+            <button class="view-profile-btn">
+                <a href="{{ url_for('addsubject', class_id=cl.class_id) }}" class="add-employee-btn">Add Subjects</a>
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

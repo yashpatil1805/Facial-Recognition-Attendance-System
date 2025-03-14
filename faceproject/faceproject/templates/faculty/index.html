@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Attendance</title>
+</head>
+<body>
+    <h1>Face Recognition Attendance</h1>
+
+    <button id="startAttendanceBtn">Start Attendance</button>
+
+    <div id="videoContainer">
+        <img id="liveFeed" src="" >
+    </div>
+
+    <script>
+        document.getElementById("startAttendanceBtn").addEventListener("click", function() {
+            // Set the video source to the Flask endpoint for the live feed
+            document.getElementById("liveFeed").src = "/video_feed";
+        });
+    </script>
+</body>
+</html>

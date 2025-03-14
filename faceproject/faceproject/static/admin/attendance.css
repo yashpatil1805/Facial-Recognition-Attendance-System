@@ -1,0 +1,69 @@
+
+
+        .main-content {
+            margin-left: 260px;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+
+        .main-content h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .attendance-card {
+            background-color: #1E293B;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .attendance-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .attendance-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .attendance-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .attendance-item:last-child {
+            border-bottom: none;
+        }
+
+        .employee-info {
+            display: flex;
+            align-items: center;
+        }
+        .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius:50%;
+      object-fit: cover;
+    }
+        .employee-info .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #CBD5E1;
+            margin-right: 10px;
+        }
+
+        .check-in-time {
+            color: #10B981;
+        }
+
+        .check-in-time.late {
+            color: #F59E0B;
+        }
+

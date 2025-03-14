@@ -1,0 +1,27 @@
+{% extends "student/base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/attendance.css') }}">
+
+        <div class="attendance-card">
+            <h2>Today's Attendance</h2>
+            <p>Real-time attendance tracking</p>
+
+            <ul class="attendance-list">
+
+                {% for student in attendancedisplay %}
+                <li class="attendance-item">
+                    <div class="employee-info">
+                        <div class="avatar">
+                            <img src="data:image/jpeg;base64,{{ student.img_data }}" alt="Student Image">
+                        </div>
+                        <div>
+                            <strong>{{ student.name }} <br>{{student.attendance_date}}</strong><br>
+                                    {{ student.student_id }} | {{ student.subject_name }} | {{ student.class_name }}
+                        </div>
+                    </div>
+                    <div class="check-in-time">Checked in at {{ student.attendance_time }}</div>
+                </li>{% endfor %}
+            </ul>
+        </div>
+{% endblock %}

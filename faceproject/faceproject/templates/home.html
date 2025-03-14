@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceAttend - Revolutionize Attendance Tracking</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img class="logoimg" src="static/icons8-camera-50.png"  >
+                FaceAttend</div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('features') }}">Features</a></li>
+                    <li><a href="{{ url_for('howitworks') }}">How It Works</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="{{ url_for('login') }}" class="login-button">Login</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Revolutionize <br><span>Attendance Tracking</span></h1>
+            <p>Harness the power of facial recognition for seamless, accurate attendance management.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="static/face.png" alt="Facial Recognition Scan">
+        </div>
+    </section>
+</body>
+</html>

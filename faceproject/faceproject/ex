@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture and Fetch Image</title>
+    <script>
+        async function captureImage() {
+            const response = await fetch('/capture', { method: 'POST' });
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function fetchImage() {
+            const response = await fetch('/fetch', { method: 'GET' });
+            if (response.ok) {
+                const result = await response.json();
+                const img = document.getElementById('displayImage');
+                img.src = `data:image/jpeg;base64,${result.image}`;
+            } else {
+                alert('No image found');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Capture and Fetch Image</h1>
+    <button onclick="captureImage()">Capture</button>
+    <button onclick="fetchImage()">Fetch</button>
+    <div>
+        <img id="displayImage" alt="Captured Image will appear here" style="margin-top: 20px; width: 300px; height: auto;">
+    </div>
+</body>
+</html>
+
+from flask import Flask, render_template, request, jsonify, Response
+import cv2
+import mysql.connector
+import base64
+import os
+
+app = Flask(__name__)
+
+# Configure MySQL
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '',
+    'database': 'image_store'
+}
+
+# Create a database connection
+def get_db_connection():
+    return mysql.connector.connect(**db_config)
+
+# Home Route
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Capture Image Route
+@app.route('/capture', methods=['POST'])
+def capture_image():
+    camera = cv2.VideoCapture(0)
+    ret, frame = camera.read()
+    if not ret:
+        return jsonify({'message': 'Failed to capture image'}), 500
+    camera.release()
+    cv2.destroyAllWindows()
+
+    # Save image to file
+    img_path = 'captured_image.jpg'
+    cv2.imwrite(img_path, frame)
+
+    # Convert to binary and save in database
+    with open(img_path, 'rb') as file:
+        img_blob = file.read()
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO images (image) VALUES (%s)", (img_blob,))
+    conn.commit()
+    conn.close()
+
+    os.remove(img_path)  # Clean up the temporary file
+
+    return jsonify({'message': 'Image captured and saved successfully'})
+
+# Fetch Image Route
+@app.route('/fetch', methods=['GET'])
+def fetch_image():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT image FROM images ORDER BY id DESC LIMIT 1")
+    record = cursor.fetchone()
+    conn.close()
+
+    if record:
+        img_blob = record[0]
+        img_base64 = base64.b64encode(img_blob).decode('utf-8')
+        return jsonify({'image': img_base64})
+    else:
+        return jsonify({'message': 'No image found'}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% extends "admin/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Class</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/subjects.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #a78bfa;
+        }
+
+        button {
+            background-color: #4c51bf;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 10px auto;
+        }
+
+        button:hover {
+            background-color: #6366f1;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 1500px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #374151;
+            border-radius: 5px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>List of Subjects</h1>
+    <div class="content">
+
+
+        <ul class="employee-list">
+            {% for s in subject %}
+            <li class="employee-item">
+                <div class="employee-details">
+                    <p>Subject Id: {{ s.subject_id }}</p>
+                    <p>Subject Name: {{ s.subject_name }}</p>
+                    <p>Class Id: {{ s.class_id }}</p>
+                    <p>Faculty Id: {{ s.faculty_id }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+ <form action="/admin/addsubject/" method="POST">
+        <input type="hidden" name="class_id" value="{{ class_id }}">
+        <label for="name">Subject Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="name">Faculty ID:</label>
+        <input type="text" id="faculty_id" name="faculty_id" required>
+        <button type="submit">Register Subject</button>
+    </form>
+</body>
+</html>
+{% endblock %}

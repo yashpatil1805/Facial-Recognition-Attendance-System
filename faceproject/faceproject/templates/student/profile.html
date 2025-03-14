@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "student/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/employee.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+
+
+
+        /* Container for the profile content */
+        .profile-container {
+            max-width: 800px;
+            margin: auto;
+
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header with the student's name */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Profile image styling */
+        .profile-avatar {
+            display: flex;
+            margin: 0 auto 0px;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #007bff;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Student details styling */
+        .profile-details {
+            text-align: center;
+        }
+
+        .profile-details p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .profile-details .label {
+            font-weight: bold;
+        }
+
+        /* Add some responsiveness */
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 15px;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-details p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                 {% for student in students %}
+                <img src="data:image/jpeg;base64,{{ student.img_data }}" alt="Student Image">
+            </div>
+            <h1>{{ student.name }}</h1>
+        </div>
+        <div class="profile-details">
+            <p><span class="label">Enrollment Number:</span> {{ student.enrollment_number }}</p>
+            <p><span class="label">Email:</span> {{ student.name }}123@gmail.com</p>
+            <p><span class="label">Phone:</span> {{ student.phone }}9823784576</p>
+            <!-- Add more details as needed -->
+        </div>
+           {% endfor %}
+    </div>
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,9 @@
+Flask~=3.1.0
+Flask-MySQLdb
+flask-bcrypt~=1.0.1
+flask-login~=0.6.3
+Flask-WTF
+OpenCV-Python~=4.10.0.84
+face-recognition
+
+WTForms~=3.2.1

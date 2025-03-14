@@ -1,0 +1,62 @@
+{% extends "faculty/base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/dashboard.css') }}">
+ {% for us in u %}
+ <h2>Welcome {{ us.username }}</h2>
+{% endfor %}
+<div class="stats">
+    <div class="stat-box">
+        <h2>{{ total_students }}</h2>
+        <p>Total Students<br></p>
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_present }}</h2>
+        <p>Present Today<br>{{ attendance_rate | round(2) }}% attendance rate</p>
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_late_arrivals }}</h2>
+        <p>Late Arrivals<br>
+            {% if total_present != 0 %}
+            {{ (total_late_arrivals / total_present) * 100 | round(2) }}% of present students
+        {% else %}
+        No present employees today.
+    {% endif %}
+        </p>
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_absent }}</h2>
+        <p>Absent Today<br>{{ absentee_rate | round(2) }}% absence rate</p>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Attendance Chart -->
+<canvas id="facultyAttendanceChart"></canvas>
+
+<script>
+    var ctx = document.getElementById('facultyAttendanceChart').getContext('2d');
+    var facultyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ attendance_dates | tojson }},
+            datasets: [{
+                label: 'Attendance Count (Last 30 Days)',
+                data: {{ attendance_counts | tojson }},
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

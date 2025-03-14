@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/dashboard.css') }}">
+
+<div class="stats">
+    <div class="stat-box">
+        <h2>{{ total_employees }}</h2>
+        <p>Total Employees (Faculty)<br>+{{ total_employees - 120 }} from last month</p>
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_present }}</h2>
+        <p>Present Today<br>{{ attendance_rate | round(2) }}% attendance rate</p>
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_late_arrivals }}</h2>
+       <p>Late Arrivals<br>
+    {% if total_present != 0 %}
+        {{ (total_late_arrivals / total_present) * 100 | round(2) }}% of present employees
+    {% else %}
+        No present employees today.
+    {% endif %}
+</p>
+
+    </div>
+    <div class="stat-box">
+        <h2>{{ total_absent }}</h2>
+        <p>Absent Today<br>{{ absentee_rate | round(2) }}% absence rate</p>
+    </div>
+</div>
+
+<div class="chart-placeholder">
+    Attendance Chart Placeholder
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/employee.css') }}">
+
+  <div class="content">
+    <h1>Faculty Directory</h1>
+    <p>Manage your workforce</p>
+    <input type="text" class="search-bar" placeholder="Search Faculty...">
+    <ul class="employee-list">
+      {% for user in users %}
+
+        <span>
+      <li class="employee-item">
+        <div class="employee-avatar">
+
+        </div>
+        <div class="employee-details">
+          <p class="employee-name">{{ user.username }}</p>
+          <p class="employee-role">{{ user.user_id }}</p>
+        </div>
+        <button class="view-profile-btn">{{ user.created_at }}</button>
+      </li>
+        </span>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

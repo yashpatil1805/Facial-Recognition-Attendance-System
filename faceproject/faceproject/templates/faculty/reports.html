@@ -1,0 +1,92 @@
+{% extends "faculty/base.html" %}
+{% block title %}Attendance Reports{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/reports.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="attendance-card">
+    <h2>Attendance Reports</h2>
+    <p>Filter, analyze, and download attendance records.</p>
+
+    <!-- Date Range Filter -->
+    <form method="GET" action="{{ url_for('reports') }}">
+        <label for="start_date">From:</label>
+        <input type="date" name="start_date" value="{{ request.args.get('start_date', default_date) }}">
+
+        <label for="end_date">To:</label>
+        <input type="date" name="end_date" value="{{ request.args.get('end_date', default_date) }}">
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Attendance Summary -->
+    <div class="attendance-summary">
+        <h3>Summary</h3>
+        <p>Total Students Present: <strong>{{ total_present }}</strong></p>
+        <p>Total <Class></Class>es Conducted: <strong>{{ total_classes }}</strong></p>
+    </div>
+
+    <!-- Graphs -->
+    <canvas id="attendanceChart"></canvas>
+
+    <script>
+        var ctx = document.getElementById('attendanceChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ attendance_dates | tojson }},
+                datasets: [{
+                    label: 'Attendance Count',
+                    data: {{ attendance_counts | tojson }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+    <!-- Download Buttons -->
+    <form method="POST" action="{{ url_for('download_attendance', file_type='excel') }}">
+        <button type="submit">Download Excel</button>
+    </form>
+
+    <form method="POST" action="{{ url_for('download_attendance', file_type='pdf') }}">
+        <button type="submit">Download PDF</button>
+    </form>
+
+    <!-- Attendance Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Check-in Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in attendancedisplay %}
+            <tr>
+                <td><img src="data:image/jpeg;base64,{{ student.img_data }}" alt="Student Image" width="50"></td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.class_name }}</td>
+                <td>{{ student.subject_name }}</td>
+                <td>{{ student.attendance_date }}</td>
+                <td>{{ student.attendance_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

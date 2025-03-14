@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Take Attendance{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/takeattendance.css') }}">
+
+ <div class="content">
+    <div class="container">
+        <div class="title">Facial Recognition Attendance</div>
+        <div class="subtitle">Capture your face to mark your attendance</div>
+        <div class="video-container">
+            <div id="camera-feed">
+        <button id="startAttendanceBtn">Start Attendance</button>
+        <button id="done_button">Done</button>
+
+        <img id="liveFeed" src="" >
+
+
+
+    </div>
+        </div>
+     <!--   <button onclick="startAttendance()">Start</button>-->
+
+        <div class="info-section">
+            <div class="info-title">Tips for a better capture:</div>
+            <ul class="info-list">
+                <li>Ensure good lighting in the room.</li>
+                <li>Position your face directly in front of the camera.</li>
+                <li>Make sure your face is clearly visible without obstructions.</li>
+            </ul>
+        </div>
+    </div>
+ </div>
+    <script>
+            async function startAttendance() {
+            const response = await fetch('/start_attendance', { method: 'POST' });
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        function showLiveFeed() {
+            document.getElementById('live-feed').src = "{{ url_for('attendance_feed') }}";
+            document.getElementById('live-feed').style.display = 'block';
+            document.getElementById('start-button').style.display = 'none';
+        }
+        document.getElementById("startAttendanceBtn").addEventListener("click", function() {
+            // Set the video source to the Flask endpoint for the live feed
+            document.getElementById("liveFeed").src = "/facefeed";
+        });
+        document.getElementById('done_button').addEventListener('click', function() {
+            fetch('/stop_stream', { method: 'POST' }).then(response => {
+                alert("Feed stopped!");
+                document.getElementById('liveFeed').style.display = "none";
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .features-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .features-section h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .features-section p {
+            color: #8B949E;
+            margin-bottom: 40px;
+        }
+
+        .features-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background-color: #161B22;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #58A6FF;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            color: #8B949E;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="features-section">
+        <h2>Key Features</h2>
+        <p>Experience the future of attendance management with our cutting-edge features</p>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <div class="feature-title">Facial Recognition</div>
+                <div class="feature-description">Advanced AI algorithms for accurate face detection and matching.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <div class="feature-title">Real-time Tracking</div>
+                <div class="feature-description">Instant attendance updates as students or employees arrive.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Comprehensive Reports</div>
+                <div class="feature-description">Generate detailed attendance reports with just a few clicks.</div>
+            </div>
+        </div>
+      <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

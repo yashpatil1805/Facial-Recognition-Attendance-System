@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .contact-section h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-section p {
+            color: #8B949E;
+            margin-bottom: 40px;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background-color: #161B22;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #58A6FF;
+        }
+
+        .contact-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            color: #8B949E;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #58A6FF;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Get in touch with us for any inquiries or support.</p>
+        <div class="contact-container">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <div class="contact-title">Email</div>
+                <div class="contact-info">support@example.com</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <div class="contact-title">Phone</div>
+                <div class="contact-info">+123 456 7890</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <div class="contact-title">Address</div>
+                <div class="contact-info">123, Tech Park, City, Country</div>
+            </div>
+        </div>
+        <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>
